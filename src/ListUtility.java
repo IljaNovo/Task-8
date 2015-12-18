@@ -2,24 +2,31 @@ import java.util.*;
 
 public class ListUtility {
 
-    public static <T> ArrayList<T> filter(List<? extends T> elems, Predicate<? super T> pred) {
+    public static <T> List<T> filter(List<? extends T> elems, Predicate<? super T> pred) {
         if (elems == null) {
-            return null;
+            return new ArrayList<T>();
         }
-        ArrayList<T> foundItems = new ArrayList();
+        List<T> foundItems = new ArrayList();
 
         for (T item : elems) {
             if (pred.checkCondition(item)) {
                 foundItems.add(item);
             }
         }
-        return (ArrayList)foundItems.clone();
+        return foundItems;
     }
 
-    public static <T> T findMiddleValue(Collection<T> elems, SearchMiddleValue<T> smv) {
+    public static Double findMiddleValue(Collection<Double> elems) {
         if (elems == null) {
-            return null;
+            return 0.0;
         }
-        return smv.find(elems);
+        Double sum = 0.0;
+
+        for (Double item : elems) {
+            sum += item;
+        }
+        return sum / elems.size();
     }
 }
+
+

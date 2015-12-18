@@ -1,8 +1,6 @@
 import org.junit.Test;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class ListUtilityTest {
@@ -31,26 +29,16 @@ public class ListUtilityTest {
 
     @Test
     public void testFindMiddleValue() throws Exception {
-        List<Integer> elems = new ArrayList<>();
+        List<Double> elems = new ArrayList<>();
 
-        elems.add(1);
-        elems.add(2);
-        elems.add(3);
-        elems.add(4);
-        elems.add(5);
+        elems.add(1.0);
+        elems.add(2.0);
+        elems.add(3.0);
+        elems.add(4.0);
+        elems.add(5.0);
 
-        int middleElem = ListUtility.findMiddleValue(elems, new SearchMiddleValue<Integer>() {
-            @Override
-            public Integer find(Collection<Integer> elems) {
-                int sum = 0;
-
-                for (Integer item : elems) {
-                    sum += item;
-                }
-                return sum / elems.size();
-            }
-        });
-        assertEquals(middleElem, 3);
+        Double middleElem = ListUtility.findMiddleValue(elems);
+        assertTrue(Math.abs(Math.abs(middleElem) - 3) < 0.001);
     }
 
     @Test
@@ -61,18 +49,9 @@ public class ListUtilityTest {
                 return (obj % 2) == 0;
             }
         });
-        Integer middleElem = ListUtility.findMiddleValue(null, new SearchMiddleValue<Integer>() {
-            @Override
-            public Integer find(Collection<Integer> elems) {
-                int sum = 0;
+        Double middleElem = ListUtility.findMiddleValue(null);
 
-                for (Integer item : elems) {
-                    sum += item;
-                }
-                return sum / elems.size();
-            }
-        });
-        assertTrue(searchElems == null);
-        assertTrue(middleElem == null);
+        assertTrue(searchElems.size() == 0);
+        assertTrue(Math.abs(Math.abs(middleElem) - 0) < 0.001);
     }
 }
